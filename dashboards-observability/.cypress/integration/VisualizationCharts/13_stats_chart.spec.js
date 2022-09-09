@@ -143,9 +143,8 @@ describe('Render stats chart for Chart Styles ', () => {
 
   it('Render stats chart and verify Metric unit and Metric Precision on chart ', () => {
     cy.get('[data-test-subj="valueFieldText"]').click().type(metricUnit);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
     cy.get('[data-test-subj="valueFieldNumber"]').eq(0).click().type(metricsPrecisionUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="visualizeEditorRenderButton"]').click();
   });
 
   it('Render stats chart and verify behaviour for Title size and Value size on chart ', () => {
@@ -153,12 +152,11 @@ describe('Render stats chart for Chart Styles ', () => {
     cy.get('.annotation-text').eq(2).should('have.css', 'font-size', titleSize);
     cy.get('.annotation-text').eq(4).should('have.css', 'font-size', titleSize);
     cy.get('[data-test-subj="valueFieldNumber"]').eq(1).click().type(titleSizeUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
     cy.get('.annotation-text').eq(1).should('have.css', 'font-size', valueSize);
     cy.get('.annotation-text').eq(3).should('have.css', 'font-size', valueSize);
     cy.get('.annotation-text').eq(5).should('have.css', 'font-size', valueSize);
     cy.get('[data-test-subj="valueFieldNumber"]').eq(2).click().type(valueSizeUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="visualizeEditorRenderButton"]').click();
   });
 });
 
@@ -190,15 +188,12 @@ describe('Render stats chart and verify the reset button' , () => {
     renderStatsChart();
   });
 
-  it('Render stats chart and test the Reset button functionality' , () => {
+  it.only('Render stats chart and test the Reset button functionality' , () => {
     cy.get('[data-test-subj="valueFieldText"]').click().type(metricUnit);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
     cy.get('[data-test-subj="valueFieldNumber"]').eq(0).click().type(metricsPrecisionUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
     cy.get('[data-test-subj="valueFieldNumber"]').eq(1).click().type(titleSizeUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
     cy.get('[data-test-subj="valueFieldNumber"]').eq(2).click().type(valueSizeUpdated);
-    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="visualizeEditorRenderButton"]').click();
     cy.get('[data-test-subj="euiColorPickerAnchor"]').click();
     cy.get('.euiColorPickerSwatch.euiColorPicker__swatchSelect').eq(5).click();
     cy.get('[data-test-subj="visualizeEditorResetButton"]').click();

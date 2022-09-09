@@ -12,12 +12,6 @@ import {
 } from '../../utils/event_constants';
 
 const numberOfWindow = 4;
-const groupWidth = 10;
-const groupWidthUpdated = 0.8;
-const fillOpacity = 10;
-const fillOpacityUpdated = 90;
-const numberOfColor = 24;
-const metricsPrecision = 1;
 const metricsPrecisionUpdated = 2;
 const metricUnit = 'cm' ;
 const titleSize = '25.5px';
@@ -59,7 +53,6 @@ describe('Render stats chart and verify default behaviour ', () => {
   });
 });
 
-
 describe('Render stats chart for data configuration panel', () => {
   beforeEach(() => {
     renderStatsChart();
@@ -83,19 +76,18 @@ describe('Render stats chart for data configuration panel', () => {
   });
 
   it('Render stats chart and verify data config panel no result found if metric is missing', () => {
-      cy.get('.euiText.euiText--extraSmall').eq(0).click();
-      cy.get('.euiText.euiText--extraSmall').eq(1).click();
-      cy.get('[data-test-subj="comboBoxClearButton"]').eq(1).click();
-      cy.get('[data-test-subj="comboBoxInput"]').eq(0).click();
-      cy.get('.euiButton__text').contains('Update chart').click();
-      cy.get('.euiTextColor.euiTextColor--subdued').contains('No results found').should('exist');
-      cy.get('[data-test-subj="comboBoxInput"]').eq(3).click();
-      cy.get('.euiComboBoxOption__content').contains('avg(bytes)').click();
-      cy.get('.euiButton__text').contains('Update chart').click();
-      cy.get('.main-svg').contains('No results found').should('not.exist');
-    });
+    cy.get('.euiText.euiText--extraSmall').eq(0).click();
+    cy.get('.euiText.euiText--extraSmall').eq(1).click();
+    cy.get('[data-test-subj="comboBoxClearButton"]').eq(1).click();
+    cy.get('[data-test-subj="comboBoxInput"]').eq(0).click();
+    cy.get('.euiButton__text').contains('Update chart').click();
+    cy.get('.euiTextColor.euiTextColor--subdued').contains('No results found').should('exist');
+    cy.get('[data-test-subj="comboBoxInput"]').eq(3).click();
+    cy.get('.euiComboBoxOption__content').contains('avg(bytes)').click();
+    cy.get('.euiButton__text').contains('Update chart').click();
+    cy.get('.main-svg').contains('No results found').should('not.exist');
+  });
 });
-
 
 describe('Render stats chart for panel options', () => {
   beforeEach(() => {
@@ -116,10 +108,8 @@ describe('Render stats chart verfiy functionality for Tooltip mode', () => {
   
   it('Render stats chart and verfiy the Show and Hidden Tooltip modes', () => {
     cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(0).should('have.text', 'Show');
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(1).should('have.text', 'Hidden')
-    .click();
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(1).should('have.text', 'Hidden').click();
   });
-  
 });
 
 describe('Render stats chart verfiy functionality for Tooltip text', () => {
@@ -129,11 +119,8 @@ describe('Render stats chart verfiy functionality for Tooltip text', () => {
 
   it('Render stats chart and verfiy the Tootltip text -> All , Dimension , Metric', () => {
     cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(2).should('have.text', 'All');
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(3).should('have.text', 'Dimension')
-    .click();
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(4).should('have.text', 'Metrics')
-    .click();
-
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(3).should('have.text', 'Dimension').click();
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(4).should('have.text', 'Metrics').click();
   });
 });
 
@@ -142,123 +129,78 @@ describe('Render stats chart for Chart Styles ', () => {
     renderStatsChart();
   });
 
-  it('Render stats chart and verfiy the default/Auto chart type selected', () => {
+  it('Render stats chart and verify the various chart type selected', () => {
     cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(5).should('have.text', 'Auto');
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(6).should('have.text', 'Horizontal').click();
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(7).should('have.text', 'Text mode').click();
   });
 
-  it('Render stats chart and verify the horizontal chart type', () => {
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(6)
-    .should('have.text', 'Horizontal')
-    .click();
-    cy.wait(delay);
-  });
-
-  it('Render stats chart and verify the Text mode chart type', () => {
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(7)
-    .should('have.text', 'Text mode')
-    .click();
-    cy.wait(delay);
-  });
-
-  
-  it('Render stats chart and verfiy the default/Auto chart type selected', () => {
+  it('Render stats chart and verify the various chart orientation selected', () => {
     cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(8).should('have.text', 'Auto');
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(9).should('have.text', 'Horizontal').click();
+    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(10).should('have.text', 'Vertical').click();
   });
 
-  it('Render stats chart and verify the horizontal orientation type', () => {
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(9)
-    .should('have.text', 'Horizontal')
-    .click();
-    cy.wait(delay);
-  });
-
-  it('Render stats chart and verfiy the vertical orientation type', () => {
-    cy.get('.euiButton__text.euiButtonGroupButton__textShift').eq(10)
-    .should('have.text', 'Vertical')
-    .click();
-    cy.wait(delay);
-  });
-
-  it('Render stats chart and Metrics unit on chart ', () => {
+  it('Render stats chart and verify Metric unit and Metric Precision on chart ', () => {
     cy.get('[data-test-subj="valueFieldText"]').click().type(metricUnit);
     cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-  });
-
-  it('Render stats chart and Metrics Precision on chart ', () => {
     cy.get('[data-test-subj="valueFieldNumber"]').eq(0).click().type(metricsPrecisionUpdated);
     cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
   });
 
-  it('Render stats chart and Title size on chart ', () => {
+  it('Render stats chart and verify behaviour for Title size and Value size on chart ', () => {
     cy.get('.annotation-text').eq(0).should('have.css', 'font-size', titleSize);
     cy.get('.annotation-text').eq(2).should('have.css', 'font-size', titleSize);
     cy.get('.annotation-text').eq(4).should('have.css', 'font-size', titleSize);
     cy.get('[data-test-subj="valueFieldNumber"]').eq(1).click().type(titleSizeUpdated);
     cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-    cy.wait(delay);
-
-  });
-
-  it('Render stats chart and Value size on chart ', () => {
     cy.get('.annotation-text').eq(1).should('have.css', 'font-size', valueSize);
     cy.get('.annotation-text').eq(3).should('have.css', 'font-size', valueSize);
     cy.get('.annotation-text').eq(5).should('have.css', 'font-size', valueSize);
     cy.get('[data-test-subj="valueFieldNumber"]').eq(2).click().type(valueSizeUpdated);
     cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-    cy.wait(delay);
   });
 });
 
 describe('Render stats chart and verify the Text Mode options' , () => {
   beforeEach(() => {
-      renderStatsChart();
+    renderStatsChart();
   });
 
   it('Render stats chart and verify text modes ', () => {
-      cy.get('[data-text="Names"]').should('have.text', 'Names').click();
-//       cy.get('[data-text="Names"] [data-test-subj="names"]').should('have.attr', 'checked');
-      cy.get('[data-text="Values"]').should('have.text', 'Values').click();
-      cy.get('[data-text="Values + Names"]').should('have.text', 'Values + Names').click();
-      cy.wait(delay);
-
+    cy.get('[data-text="Names"]').should('have.text', 'Names').click();
+    cy.get('[data-text="Values"]').should('have.text', 'Values').click();
+    cy.get('[data-text="Values + Names"]').should('have.text', 'Values + Names').click();
   });
 });
 
 describe('Render stats chart and verify the +add threshold button option' , () => {
   beforeEach(() => {
-      renderStatsChart();
+    renderStatsChart();
   });
 
   it('Render stats chart and verify the +Add Threshold button for color picker' , () => {
-      cy.get('[data-test-subj="euiColorPickerAnchor"]').click();
-      cy.get('.euiColorPickerSwatch.euiColorPicker__swatchSelect').eq(5).click();
-      cy.wait(delay);
+    cy.get('[data-test-subj="euiColorPickerAnchor"]').click();
+    cy.get('.euiColorPickerSwatch.euiColorPicker__swatchSelect').eq(5).click();
   });
 });
 
 describe('Render stats chart and verify the reset button' , () => {
   beforeEach(() => {
-      renderStatsChart();
+    renderStatsChart();
   });
 
   it('Render stats chart and test the Reset button functionality' , () => {
-      cy.get('[data-test-subj="valueFieldText"]').click().type(metricUnit);
-      cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-      cy.wait(delay);
-      cy.get('[data-test-subj="valueFieldNumber"]').eq(0).click().type(metricsPrecisionUpdated);
-      cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-      cy.wait(delay);
-      cy.get('[data-test-subj="valueFieldNumber"]').eq(1).click().type(titleSizeUpdated);
-      cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-      cy.wait(delay);
-      cy.get('[data-test-subj="valueFieldNumber"]').eq(2).click().type(valueSizeUpdated);
-      cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
-      cy.wait(delay);
-      cy.get('[data-test-subj="euiColorPickerAnchor"]').click();
-      cy.get('.euiColorPickerSwatch.euiColorPicker__swatchSelect').eq(5).click();
-      cy.wait(delay);
-      cy.get('[data-test-subj="visualizeEditorResetButton"]').click();
-
+    cy.get('[data-test-subj="valueFieldText"]').click().type(metricUnit);
+    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="valueFieldNumber"]').eq(0).click().type(metricsPrecisionUpdated);
+    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="valueFieldNumber"]').eq(1).click().type(titleSizeUpdated);
+    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="valueFieldNumber"]').eq(2).click().type(valueSizeUpdated);
+    cy.get('.euiSpacer.euiSpacer--s').eq(12).click();
+    cy.get('[data-test-subj="euiColorPickerAnchor"]').click();
+    cy.get('.euiColorPickerSwatch.euiColorPicker__swatchSelect').eq(5).click();
+    cy.get('[data-test-subj="visualizeEditorResetButton"]').click();
   });
-
 });
